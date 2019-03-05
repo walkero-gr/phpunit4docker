@@ -16,14 +16,18 @@ All the docker images are based on Alpine Linux and have really small footprint,
 
 Find the latest tags at [Docker Hub](https://hub.docker.com/r/walkero/phpunit-alpine/tags)
 
-| Tag                  | PHP    | PHPUnit  |
-| -------------------- | ------ | -------- | 
-| php7.3-phpunit7.5    | 7.3    | 7.5.x    |
-| php7.3-phpunit6.5    | 7.3    | 6.5.x    |
-| php7.3-phpunit5.7    | 7.3    | 5.7.x    |
-| php7.2-phpunit7.5    | 7.2    | 7.5.x    |
-| php7.2-phpunit6.5    | 7.2    | 6.5.x    |
-| php7.2-phpunit5.7    | 7.2    | 5.7.x    |
+Coverage generation is available for the tags that include xDebug.
+
+| Tag                  | PHP    | PHPUnit  | xDebug   |
+| -------------------- | ------ | -------- | -------- | 
+| php7.3-phpunit7.5    | 7.3    | 8.0.x    | 2.7.0RC2 |
+| php7.3-phpunit7.5    | 7.3    | 7.5.x    | 2.7.0RC2 |
+| php7.3-phpunit6.5    | 7.3    | 6.5.x    | 2.7.0RC2 |
+| php7.3-phpunit5.7    | 7.3    | 5.7.x    | 2.7.0RC2 |
+| php7.3-phpunit7.5    | 7.2    | 8.0.x    | 2.6.1    |
+| php7.2-phpunit7.5    | 7.2    | 7.5.x    | 2.6.1    |
+| php7.2-phpunit6.5    | 7.2    | 6.5.x    | 2.6.1    |
+| php7.2-phpunit5.7    | 7.2    | 5.7.x    | 2.6.1    |
 | php7.1-phpunit7.5    | 7.1    | 7.5.x    |
 | php7.1-phpunit6.5    | 7.1    | 6.5.x    |
 | php7.1-phpunit5.7    | 7.1    | 5.7.x    |
