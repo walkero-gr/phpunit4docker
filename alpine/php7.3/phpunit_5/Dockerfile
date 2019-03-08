@@ -16,7 +16,7 @@ RUN apk add --update --no-cache bash \
     openssh \
     && rm -rf /var/cache/apk/*
 
-RUN pecl install xdebug-2.7.0RC2; \
+RUN pecl install xdebug-2.7.0; \
     docker-php-ext-enable xdebug;
 
 RUN curl -fSL "https://getcomposer.org/installer" -o /tmp/composer-setup.php;
