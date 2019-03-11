@@ -28,10 +28,10 @@ Coverage generation is available for the tags that include xDebug.
 | php7.2-phpunit7.5    | 7.2    | 7.5.x    | 2.6.1    |
 | php7.2-phpunit6.5    | 7.2    | 6.5.x    | 2.6.1    |
 | php7.2-phpunit5.7    | 7.2    | 5.7.x    | 2.6.1    |
-| php7.1-phpunit7.5    | 7.1    | 7.5.x    |
-| php7.1-phpunit6.5    | 7.1    | 6.5.x    |
-| php7.1-phpunit5.7    | 7.1    | 5.7.x    |
-| php5.6-phpunit5.7    | 5.6    | 5.7.x    |
+| php7.1-phpunit7.5    | 7.1    | 7.5.x    | 2.6.1    |
+| php7.1-phpunit6.5    | 7.1    | 6.5.x    | 2.6.1    |
+| php7.1-phpunit5.7    | 7.1    | 5.7.x    | 2.6.1    |
+| php5.6-phpunit5.7    | 5.6    | 5.7.x    | 2.5.5    |
 
 ### Docker Compose
 To use these images at your docker-compose yml files, you have to add the following under services:
