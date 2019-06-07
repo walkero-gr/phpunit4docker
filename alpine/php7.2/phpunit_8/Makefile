@@ -1,7 +1,7 @@
 -include env_make
 
 PHP_VER ?= 7.2
-PHPUNIT_VER ?= 8.0.4
+PHPUNIT_VER ?= 8.2.1
 
 
 PHPUNIT_MINOR_VER ?= $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
