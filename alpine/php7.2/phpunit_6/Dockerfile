@@ -7,6 +7,8 @@ ARG PHPUNIT_VER
 MAINTAINER Georgios Sokianos <walkero@gmail.com>
 LABEL maintainer="Georgios Sokianos <walkero@gmail.com>"
 
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
 RUN apk add --update --no-cache bash \
     autoconf \
     cmake \
