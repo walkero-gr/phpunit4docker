@@ -3,6 +3,7 @@ ARG PHP_VER
 FROM php:${PHP_VER}-fpm-alpine
 
 ARG PHPUNIT_VER
+ARG XDEBUG_VER
 
 MAINTAINER Georgios Sokianos <walkero@gmail.com>
 LABEL maintainer="Georgios Sokianos <walkero@gmail.com>"
@@ -16,7 +17,7 @@ RUN apk add --update --no-cache bash \
     openssh \
     && rm -rf /var/cache/apk/*
 
-RUN pecl install xdebug-2.5.5; \
+RUN pecl install xdebug-${XDEBUG_VER}; \
     docker-php-ext-enable xdebug;
 
 RUN curl -fSL "https://getcomposer.org/installer" -o /tmp/composer-setup.php;
