@@ -2,6 +2,7 @@
 
 PHP_VER ?= 7.3
 PHPUNIT_VER ?= 6.5.14
+XDEBUG_VER ?= 2.7.2
 
 
 PHPUNIT_MINOR_VER ?= $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
@@ -23,7 +24,8 @@ default: build
 build:
 	docker build --no-cache -t $(REPO):$(TAG) 	\
 			--build-arg PHP_VER=$(PHP_VER) 		\
-			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) ./
+			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 push:
 	docker push $(REPO):$(TAG)
