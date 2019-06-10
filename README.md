@@ -5,11 +5,12 @@ All the docker images are based on Alpine Linux and have really small footprint,
 
 ### Features
 - These containers stay alive all the time, as soon as you run them
-- Easy usable with docker compose and different project installations
+- Easy usable with docker compose and multiple project installations
 - Are based on the principle of single logical services per container
 - Cover different versions of PHP and PHPUnit
 - Build from official PHP docker images
-
+- PHPUnit is able to generate coverage reports
+- Supports PDO MySQL
 
 ## Usage
 ### Available tags
@@ -20,14 +21,15 @@ Coverage generation is available for the tags that include xDebug.
 
 | Tag                  | PHP    | PHPUnit  | xDebug   |
 | -------------------- | ------ | -------- | -------- | 
-| php7.3-phpunit7.5    | 7.3    | 8.2.x    | 2.7.2    |
+| php7.3-phpunit8.2    | 7.3    | 8.2.x    | 2.7.2    |
 | php7.3-phpunit7.5    | 7.3    | 7.5.x    | 2.7.2    |
 | php7.3-phpunit6.5    | 7.3    | 6.5.x    | 2.7.2    |
 | php7.3-phpunit5.7    | 7.3    | 5.7.x    | 2.7.2    |
-| php7.3-phpunit7.5    | 7.2    | 8.2.x    | 2.6.1    |
+| php7.2-phpunit8.2    | 7.2    | 8.2.x    | 2.6.1    |
 | php7.2-phpunit7.5    | 7.2    | 7.5.x    | 2.6.1    |
 | php7.2-phpunit6.5    | 7.2    | 6.5.x    | 2.6.1    |
 | php7.2-phpunit5.7    | 7.2    | 5.7.x    | 2.6.1    |
+| php7.1-phpunit8.2    | 7.2    | 8.2.x    | 2.6.1    |
 | php7.1-phpunit7.5    | 7.1    | 7.5.x    | 2.6.1    |
 | php7.1-phpunit6.5    | 7.1    | 6.5.x    | 2.6.1    |
 | php7.1-phpunit5.7    | 7.1    | 5.7.x    | 2.6.1    |
@@ -38,7 +40,7 @@ To use these images at your docker-compose yml files, you have to add the follow
 ```yaml
   phpunit:
     image: walkero/phpunit-alpine:php7.3-phpunit7.5
-    container_name: "projectname_blackfire"
+    container_name: "projectname_phpunit"
     volumes:
       - ./public_html:/var/www/html 
 ```
