@@ -47,7 +47,23 @@ To use these images at your docker-compose yml files, you have to add the follow
 
 ## VIsual Studio Code
 
-TODO: Add info on VSCode setup with Better PHPUnit extension
+I recommend to use the [Better PHPUnit](https://github.com/calebporzio/better-phpunit) extension.
+
+Add the following settings in your project `settings.json` file.
+
+```json
+{
+    "better-phpunit.docker.enable": true,
+    "better-phpunit.docker.command": "docker exec -it <projectname>_phpunit",
+    "better-phpunit.docker.paths": {
+        "<your local public_html files path>": "/var/www/html"
+    },
+    "better-phpunit.phpunitBinary": "phpunit",
+    "better-phpunit.xmlConfigFilepath": "/var/www/html/phpunit.xml",
+    "better-phpunit.coveragePath": "test/coverage",
+    "better-phpunit.coverageFormat": "HTML",
+}
+```
 
 ## PHPStorm
 
