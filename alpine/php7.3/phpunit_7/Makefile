@@ -1,7 +1,7 @@
 -include env_make
 
 PHP_VER ?= 7.3
-PHPUNIT_VER ?= 7.5.12
+PHPUNIT_VER ?= 7.5.14
 XDEBUG_VER ?= 2.7.2
 
 
