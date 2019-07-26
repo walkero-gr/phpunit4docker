@@ -15,8 +15,7 @@ RUN apk add --update --no-cache bash \
         git \
         unzip \
         openssh; \
-    docker-php-ext-install \
-        pdo_mysql; \
+    docker-php-ext-enable pdo_mysql; \
     rm -rf /var/cache/apk/*; \
     pecl install xdebug-${XDEBUG_VER}; \
     docker-php-ext-enable xdebug; \
