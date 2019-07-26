@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 PHP_VER=7.3
-PHPUNIT_VER=8.2.1
+PHPUNIT_VER=8.2.5
 PHPUNIT_MINOR_VER=${PHPUNIT_VER%.*}
 XDEBUG_VER=2.7.2
 REPO=walkero/phpunit-alpine
@@ -9,8 +9,7 @@ REPO=walkero/phpunit-alpine
 TAG=php$PHP_VER-phpunit$PHPUNIT_MINOR_VER
 
 echo "------ HOOK START - BUILD -------"
-echo $TAG
-printenv
+# printenv
 
 docker build -t $REPO:$TAG 	\
 			--build-arg PHP_VER=$PHP_VER 		\
