@@ -54,7 +54,7 @@ Add the following settings in your project `settings.json` file.
 ```json
 {
     "better-phpunit.docker.enable": true,
-    "better-phpunit.docker.command": "docker exec -it <projectname>_phpunit",
+    "better-phpunit.docker.command": "docker exec -it <container name>",
     "better-phpunit.docker.paths": {
         "<your local public_html files path>": "/var/www/html"
     },
