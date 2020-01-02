@@ -1,7 +1,7 @@
 -include env_make
 
 PHP_VER ?= 7.3
-PHPUNIT_VER ?= 8.2.5
+PHPUNIT_VER ?= 8.5.1
 XDEBUG_VER ?= 2.7.2
 
 
@@ -22,6 +22,12 @@ endif
 default: build
 
 build:
+	docker build -t $(REPO):$(TAG) 	\
+			--build-arg PHP_VER=$(PHP_VER) 		\
+			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
+
+buildnc:
 	docker build --no-cache -t $(REPO):$(TAG) 	\
 			--build-arg PHP_VER=$(PHP_VER) 		\
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
