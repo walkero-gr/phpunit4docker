@@ -6,16 +6,12 @@ XDEBUG_VER ?= 2.7.2
 
 
 PHPUNIT_MINOR_VER ?= $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
+PHPUNIT_MAJOR_VER ?= $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+')
 TAG ?= php$(PHP_VER)-phpunit$(PHPUNIT_MINOR_VER)
+TAG_MAJOR ?= php$(PHP_VER)-phpunit$(PHPUNIT_MAJOR_VER)
 
 REPO = walkero/phpunit-alpine
 NAME = $(TAG)
-
-ifneq ($(STABILITY_TAG),)
-    ifneq ($(TAG),latest)
-        override TAG := $(TAG)-$(STABILITY_TAG)
-    endif
-endif
 
 .PHONY: build test push shell run start stop logs clean release
 
@@ -33,17 +29,21 @@ buildnc:
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
 			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
+buildmajor:
+	docker build --no-cache -t $(REPO):$(TAG_MAJOR) 	\
+			--build-arg PHP_VER=$(PHP_VER) 		\
+			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
+
 push:
 	docker push $(REPO):$(TAG)
+	docker push $(REPO):$(TAG_MAJOR)
 
 shell:
-	docker run --rm --name $(NAME) -i -t $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) /bin/bash
-
-run:
-	docker run --rm --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) $(CMD)
+	docker run --rm --name $(NAME) -it $(REPO):$(TAG) /bin/bash
 
 start:
-	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
+	docker run -d --name $(NAME) $(REPO):$(TAG)
 
 stop:
 	docker stop $(NAME)
@@ -54,4 +54,4 @@ logs:
 clean:
 	-docker rm -f $(NAME)
 
-release: build push
+release: buildnc buildmajor push
