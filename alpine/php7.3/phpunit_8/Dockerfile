@@ -15,9 +15,9 @@ RUN apk add --update --no-cache bash \
         git \
         unzip \
         openssh; \
-    docker-php-ext-install pdo_mysql; \
+    docker-php-ext-install mysqli pdo pdo_mysql; \
     pecl install redis; \
-    docker-php-ext-enable pdo_mysql redis; \
+    docker-php-ext-enable mysqli pdo pdo_mysql redis; \
     pecl install xdebug-${XDEBUG_VER}; \
     docker-php-ext-enable xdebug; \
     curl -fSL "https://getcomposer.org/installer" -o /tmp/composer-setup.php; \
