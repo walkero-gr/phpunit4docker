@@ -7,7 +7,7 @@ steps:
   # pull: always
   image: plugins/docker
   commands:
-    - cd /alpine
+    - cd /drone/src/alpine
     - make buildmajor UNIT=8 PHP_VER=7.4
 - name: deploy-7.4-phpunit-8
   image: plugins/docker
