@@ -1,33 +1,197 @@
 ---
 kind: pipeline
-name: build-images
+name: build-7.4-images
 
 steps:
-# - name: build-7.4-phpunit-8
-#   # pull: always
-#   image: plugins/docker
-#   commands:
-#     - cd /drone/src/alpine
-#     - sh ./setenvs.sh
-#     - echo $PHPUNIT_VER
-#     - echo $PHP_VER
-#     # - make buildmajor UNIT=8 PHP_VER=7.4
+- name: deploy-7.4-phpunit-9
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.4-phpunit9"
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit9
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=9.1.5
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
 - name: deploy-7.4-phpunit-8
   image: plugins/docker
-  # commands:
-  #   - cd /drone/src/alpine
-  #   - make build
   settings:
     repo: walkero/phpunit-alpine
     tags:
       - "php7.4-phpunit8"
-    # cache_from:
-    #   - walkero/docker4amigavbcc:latest-ppc
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit8
     dockerfile: alpine/Dockerfile
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
       - PHPUNIT_VER=8.5.5
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.4-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.4-phpunit7"
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit7
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=7.5.19
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.4-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.4-phpunit6"
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit6
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.4-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.4-phpunit5"
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit5
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=5.7.27
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+kind: pipeline
+name: build-7.3-images
+
+steps:
+- name: deploy-7.3-phpunit-9
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.3-phpunit9"
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit9
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=9.1.5
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.3-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.3-phpunit8"
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit8
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=8.5.5
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.3-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.3-phpunit7"
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit7
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=7.5.19
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.3-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.3-phpunit6"
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit6
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+- name: deploy-7.3-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.3-phpunit5"
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit5
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=5.7.27
       - XDEBUG_VER=2.9.5
     username:
       from_secret: DOCKERHUB_USERNAME
