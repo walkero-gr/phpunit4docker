@@ -4,7 +4,7 @@
 
 PHP_VER := 7.4
 XDEBUG_VER := 2.9.5
-CONFIG_PATH := "./configs"
+CONFIG_PATH := ./configs
 
 PHPUNIT_MINOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 PHPUNIT_MAJOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+')
