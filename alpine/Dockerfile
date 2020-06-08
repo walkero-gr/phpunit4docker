@@ -5,7 +5,6 @@ FROM php:${PHP_VER}-fpm-alpine
 ARG PHPUNIT_VER
 ARG XDEBUG_VER
 
-MAINTAINER Georgios Sokianos <walkero@gmail.com>
 LABEL maintainer="Georgios Sokianos <walkero@gmail.com>"
 
 RUN apk add --update --no-cache bash \

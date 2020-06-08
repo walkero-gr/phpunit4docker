@@ -3,32 +3,32 @@ kind: pipeline
 name: build-images
 
 steps:
-- name: build-7.4-phpunit-8
-  # pull: always
-  image: plugins/docker
-  commands:
-    - cd /drone/src/alpine
-    - sh ./setenvs.sh
-    - echo $PHPUNIT_VER
-    - echo $PHP_VER
-    # - make buildmajor UNIT=8 PHP_VER=7.4
-# - name: deploy-7.4-phpunit-8
+# - name: build-7.4-phpunit-8
+#   # pull: always
 #   image: plugins/docker
-#   settings:
-#     repo: walkero/phpunit-alpine
-#     tags:
-#       - "php7.4-phpunit8"
-#     # cache_from:
-#     #   - walkero/docker4amigavbcc:latest-ppc
-#     # dockerfile: alpine/Dockerfile
-#     # build_args:
-#     #   - PHP_VER=7.4
-#     #   - PHPUNIT_VER=8.5.5
-#     #   - XDEBUG_VER=
-#     username:
-#       from_secret: DOCKERHUB_USERNAME
-#     password:
-#       from_secret: DOCKERHUB_PASSWORD
+#   commands:
+#     - cd /drone/src/alpine
+#     - sh ./setenvs.sh
+#     - echo $PHPUNIT_VER
+#     - echo $PHP_VER
+#     # - make buildmajor UNIT=8 PHP_VER=7.4
+- name: deploy-7.4-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - "php7.4-phpunit8"
+    # cache_from:
+    #   - walkero/docker4amigavbcc:latest-ppc
+    dockerfile: alpine/Dockerfile
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=8.5.5
+      - XDEBUG_VER=2.9.5
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
 
 trigger:
   branch:
