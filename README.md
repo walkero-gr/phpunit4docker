@@ -1,3 +1,5 @@
+[![Build Status](https://drone-gh.intercube.gr/api/badges/walkero-gr/phpunit4docker/status.svg)](https://drone-gh.intercube.gr/walkero-gr/phpunit4docker)
+
 # phpunit4docker
 **phpunit4docker** is a banch of stand alone docker containers, based on the principle of single logical services per container. These containers can be used from IDEs, like Visual Studio Code and PHPStorm, giving you the ability to experiment with different versions and not rely on the PHPUnit version that exists under vendors folder inside your project.
 
@@ -19,30 +21,61 @@ Find the latest tags at [Docker Hub](https://hub.docker.com/r/walkero/phpunit-al
 
 Coverage generation is available for the tags that include xDebug.
 
-| Tag                  | PHP    | PHPUnit  | xDebug   |
-| -------------------- | ------ | -------- | -------- | 
-| php7.3-phpunit8.2    | 7.3    | 8.2.x    | 2.7.2    |
-| php7.3-phpunit7.5    | 7.3    | 7.5.x    | 2.7.2    |
-| php7.3-phpunit6.5    | 7.3    | 6.5.x    | 2.7.2    |
-| php7.3-phpunit5.7    | 7.3    | 5.7.x    | 2.7.2    |
-| php7.2-phpunit8.2    | 7.2    | 8.2.x    | 2.6.1    |
-| php7.2-phpunit7.5    | 7.2    | 7.5.x    | 2.6.1    |
-| php7.2-phpunit6.5    | 7.2    | 6.5.x    | 2.6.1    |
-| php7.2-phpunit5.7    | 7.2    | 5.7.x    | 2.6.1    |
-| php7.1-phpunit8.2    | 7.2    | 8.2.x    | 2.6.1    |
-| php7.1-phpunit7.5    | 7.1    | 7.5.x    | 2.6.1    |
-| php7.1-phpunit6.5    | 7.1    | 6.5.x    | 2.6.1    |
-| php7.1-phpunit5.7    | 7.1    | 5.7.x    | 2.6.1    |
-| php5.6-phpunit5.7    | 5.6    | 5.7.x    | 2.5.5    |
+#### PHP 7.4
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php7.4-phpunit9      | 9.1.x    | 2.9.5    |
+| php7.4-phpunit8      | 8.5.x    | 2.9.5    |
+| php7.4-phpunit7      | 7.5.x    | 2.9.5    |
+| php7.4-phpunit6      | 6.5.x    | 2.9.5    |
+| php7.4-phpunit5      | 5.7.x    | 2.9.5    |
+
+#### PHP 7.3
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php7.3-phpunit9      | 9.1.x    | 2.9.5    |
+| php7.3-phpunit8      | 8.5.x    | 2.9.5    |
+| php7.3-phpunit7      | 7.5.x    | 2.9.5    |
+| php7.3-phpunit6      | 6.5.x    | 2.9.5    |
+| php7.3-phpunit5      | 5.7.x    | 2.9.5    |
+
+
+#### PHP 7.2
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php7.2-phpunit9      | 9.1.x    | 2.9.5    |
+| php7.2-phpunit8      | 8.5.x    | 2.9.5    |
+| php7.2-phpunit7      | 7.5.x    | 2.9.5    |
+| php7.2-phpunit6      | 6.5.x    | 2.9.5    |
+| php7.2-phpunit5      | 5.7.x    | 2.9.5    |
+
+#### PHP 7.1
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php7.1-phpunit9      | 9.1.x    | 2.9.5    |
+| php7.1-phpunit8      | 8.5.x    | 2.9.5    |
+| php7.1-phpunit7      | 7.5.x    | 2.9.5    |
+| php7.1-phpunit6      | 6.5.x    | 2.9.5    |
+| php7.1-phpunit5      | 5.7.x    | 2.9.5    |
+
+#### PHP 5.6
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php5.6-phpunit5      | 5.7.x    | 2.9.5    |
 
 ### Docker Compose
 To use these images at your docker-compose yml files, you have to add the following under services:
 ```yaml
   phpunit:
-    image: walkero/phpunit-alpine:php7.3-phpunit7.5
+    image: walkero/phpunit-alpine:php7.3-phpunit8
     container_name: "projectname_phpunit"
     volumes:
-      - ./public_html:/var/www/html 
+      - ./public_html:/var/www/html
 ```
 
 ## VIsual Studio Code
