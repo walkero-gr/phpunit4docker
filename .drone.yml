@@ -24,11 +24,11 @@ steps:
     # cache_from:
     #   - walkero/docker4amigavbcc:latest-ppc
     dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
       - PHPUNIT_VER=8.5.5
       - XDEBUG_VER=2.9.5
-      - CONFIG_PATH=../../../../../drone/src/alpine/configs
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
