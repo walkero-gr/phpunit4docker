@@ -4,7 +4,6 @@
 
 PHP_VER := 7.4
 XDEBUG_VER := 2.9.5
-CONFIG_PATH := ./configs
 
 PHPUNIT_MINOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 PHPUNIT_MAJOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+')
@@ -23,22 +22,19 @@ build:
 	docker build -t $(REPO):$(TAG)  \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
-			--build-arg XDEBUG_VER=$(XDEBUG_VER) \
-			--build-arg CONFIG_PATH=$(CONFIG_PATH) ./
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 buildnc:
 	docker build --no-cache -t $(REPO):$(TAG)   \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
-			--build-arg XDEBUG_VER=$(XDEBUG_VER) \
-			--build-arg CONFIG_PATH=$(CONFIG_PATH) ./
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 buildmajor:
 	docker build --no-cache -t $(REPO):$(TAG_MAJOR) \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
-			--build-arg XDEBUG_VER=$(XDEBUG_VER) \
-			--build-arg CONFIG_PATH=$(CONFIG_PATH) ./
+			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 push:
 	docker push $(REPO):$(TAG)
