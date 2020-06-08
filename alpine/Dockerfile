@@ -4,6 +4,7 @@ FROM php:${PHP_VER}-fpm-alpine
 
 ARG PHPUNIT_VER
 ARG XDEBUG_VER
+ARG CONFIG_PATH
 
 LABEL maintainer="Georgios Sokianos <walkero@gmail.com>"
 
@@ -26,5 +27,5 @@ RUN apk add --update --no-cache bash \
     chmod +x /usr/local/bin/phpunit; \
     rm -rf /var/cache/apk/* /tmp/* /var/tmp/*;
 
-COPY ./configs/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ${CONFIG_PATH}/php.ini /usr/local/etc/php/conf.d/php.ini
 CMD php-fpm -F -R
