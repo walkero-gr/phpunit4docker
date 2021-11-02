@@ -21,52 +21,60 @@ Find the latest tags at [Docker Hub](https://hub.docker.com/r/walkero/phpunit-al
 
 Coverage generation is available for the tags that include xDebug.
 
+#### PHP 8.0
+
+| Tag                  | PHPUnit  | xDebug   |
+| -------------------- | -------- | -------- |
+| php8.0-phpunit9      | 9.1.x    | 2.9.8    |
+| php8.0-phpunit8      | 8.5.x    | 2.9.8    |
+| php8.0-phpunit7      | 7.5.x    | 2.9.8    |
+
 #### PHP 7.4
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.4-phpunit9      | 9.1.x    | 2.9.5    |
-| php7.4-phpunit8      | 8.5.x    | 2.9.5    |
-| php7.4-phpunit7      | 7.5.x    | 2.9.5    |
-| php7.4-phpunit6      | 6.5.x    | 2.9.5    |
-| php7.4-phpunit5      | 5.7.x    | 2.9.5    |
+| php7.4-phpunit9      | 9.1.x    | 2.9.8    |
+| php7.4-phpunit8      | 8.5.x    | 2.9.8    |
+| php7.4-phpunit7      | 7.5.x    | 2.9.8    |
+| php7.4-phpunit6      | 6.5.x    | 2.9.8    |
+| php7.4-phpunit5      | 5.7.x    | 2.9.8    |
 
 #### PHP 7.3
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.3-phpunit9      | 9.1.x    | 2.9.5    |
-| php7.3-phpunit8      | 8.5.x    | 2.9.5    |
-| php7.3-phpunit7      | 7.5.x    | 2.9.5    |
-| php7.3-phpunit6      | 6.5.x    | 2.9.5    |
-| php7.3-phpunit5      | 5.7.x    | 2.9.5    |
+| php7.3-phpunit9      | 9.1.x    | 2.9.8    |
+| php7.3-phpunit8      | 8.5.x    | 2.9.8    |
+| php7.3-phpunit7      | 7.5.x    | 2.9.8    |
+| php7.3-phpunit6      | 6.5.x    | 2.9.8    |
+| php7.3-phpunit5      | 5.7.x    | 2.9.8    |
 
 
 #### PHP 7.2
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.2-phpunit9      | 9.1.x    | 2.9.5    |
-| php7.2-phpunit8      | 8.5.x    | 2.9.5    |
-| php7.2-phpunit7      | 7.5.x    | 2.9.5    |
-| php7.2-phpunit6      | 6.5.x    | 2.9.5    |
-| php7.2-phpunit5      | 5.7.x    | 2.9.5    |
+| php7.2-phpunit9      | 9.1.x    | 2.9.8    |
+| php7.2-phpunit8      | 8.5.x    | 2.9.8    |
+| php7.2-phpunit7      | 7.5.x    | 2.9.8    |
+| php7.2-phpunit6      | 6.5.x    | 2.9.8    |
+| php7.2-phpunit5      | 5.7.x    | 2.9.8    |
 
 #### PHP 7.1
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.1-phpunit9      | 9.1.x    | 2.9.5    |
-| php7.1-phpunit8      | 8.5.x    | 2.9.5    |
-| php7.1-phpunit7      | 7.5.x    | 2.9.5    |
-| php7.1-phpunit6      | 6.5.x    | 2.9.5    |
-| php7.1-phpunit5      | 5.7.x    | 2.9.5    |
+| php7.1-phpunit9      | 9.1.x    | 2.9.8    |
+| php7.1-phpunit8      | 8.5.x    | 2.9.8    |
+| php7.1-phpunit7      | 7.5.x    | 2.9.8    |
+| php7.1-phpunit6      | 6.5.x    | 2.9.8    |
+| php7.1-phpunit5      | 5.7.x    | 2.9.8    |
 
 #### PHP 5.6
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php5.6-phpunit5      | 5.7.x    | 2.9.5    |
+| php5.6-phpunit5      | 5.7.x    | 2.9.8    |
 
 ### Docker Compose
 To use these images at your docker-compose yml files, you have to add the following under services:
