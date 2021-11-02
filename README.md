@@ -1,13 +1,13 @@
 [![Build Status](https://drone-gh.intercube.gr/api/badges/walkero-gr/phpunit4docker/status.svg)](https://drone-gh.intercube.gr/walkero-gr/phpunit4docker)
 
 # phpunit4docker
-**phpunit4docker** is a banch of stand alone docker containers, based on the principle of single logical services per container. These containers can be used from IDEs, like Visual Studio Code and PHPStorm, giving you the ability to experiment with different versions and not rely on the PHPUnit version that exists under vendors folder inside your project.
+**phpunit4docker** is a bunch of stand-alone Docker containers, based on the principle of single logical services per container. These containers can be used from IDEs, like Visual Studio Code and PHPStorm, giving you the ability to experiment with different versions and not rely on the PHPUnit version that exists under the **.vendors** folder inside your project.
 
-All the docker images are based on Alpine Linux and have really small footprint, requiring less than 45MB of space.
+All the docker images are based on Alpine Linux and have a really small footprint, requiring less than 45MB of space.
 
 ### Features
 - These containers stay alive all the time, as soon as you run them
-- Easy usable with docker compose and multiple project installations
+- Easy usable with docker-compose and multiple project installations
 - Are based on the principle of single logical services per container
 - Cover different versions of PHP and PHPUnit
 - Build from official PHP docker images
@@ -86,9 +86,9 @@ To use these images at your docker-compose yml files, you have to add the follow
       - ./public_html:/var/www/html
 ```
 
-## VIsual Studio Code
+## Visual Studio Code
 
-I recommend to use the [Better PHPUnit](https://github.com/calebporzio/better-phpunit) extension.
+I recommend using the [Better PHPUnit](https://github.com/calebporzio/better-phpunit) extension.
 
 Add the following settings in your project `settings.json` file.
 
@@ -105,12 +105,12 @@ Add the following settings in your project `settings.json` file.
     "better-phpunit.coverageFormat": "HTML",
 }
 ```
-Consult the extension's documentation about the key compinations or the menu selections you can use to run your tests.
+Consult the extension's documentation about the key combinations or the menu selections you can use to run your tests.
 
 ## PHPStorm
 
 
-1. First, we have to configure the connection to Docker engine:
+1. First, we have to configure the connection to the Docker engine:
    * Go to `Preferences -> Build, Execution, Deployment -> Docker`
    * Create a new Docker configuration:
      * for MacOS select `Docker for Mac`
@@ -126,12 +126,12 @@ Consult the extension's documentation about the key compinations or the menu sel
        * Configuration file(s): [select here the project docker-compose.yml file]
        * Service: **phpunit**
      * Click on the `OK` button
-     * Now the phpunit docker is added at your CLI Interpreters list at the left. At the right there are the configuration options. Change:
-       * Lifecycle to `Connect to existing container ('docker-compose exec')` as these containers run always
+     * Now the phpunit docker is added to your CLI Interpreters list at the left. At the right, there are the configuration options. Change:
+       * Lifecycle to `Connect to the existing container ('docker-compose exec')` as these containers run always
      * Click on the `OK` button
-1. Time to configure the PHPunit in the project:
+1. Time to configure the PHPUnit in the project:
    * Go to `Preferences -> Languages & Frameworks -> PHP -> Test Frameworks`
-   * Create a new PHPunit configuration by clicking the **+** and select `PHPUnit by Remote interpreter...`
+   * Create a new PHPUnit configuration by clicking the **+** and selecting `PHPUnit by Remote interpreter...`
    * Select from the list the phpunit previously added
    * Set the `Path mappings`
    * Select `Use Composer Autoloader` and set the `Path to script` to your vendor autoload.php file in the container, i.e. `/var/www/html/vendor/autoload.php`
