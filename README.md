@@ -25,29 +25,29 @@ Coverage generation is available for the tags that include xDebug.
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php8.0-phpunit9      | 9.1.x    | 2.9.8    |
-| php8.0-phpunit8      | 8.5.x    | 2.9.8    |
-| php8.0-phpunit7      | 7.5.x    | 2.9.8    |
+| php8.0-phpunit9      | 9.1.x    | 3.1.2    |
+| php8.0-phpunit8      | 8.5.x    | 3.1.2    |
+| php8.0-phpunit7      | 7.5.x    | 3.1.2    |
 
 #### PHP 7.4
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.4-phpunit9      | 9.1.x    | 2.9.8    |
-| php7.4-phpunit8      | 8.5.x    | 2.9.8    |
-| php7.4-phpunit7      | 7.5.x    | 2.9.8    |
-| php7.4-phpunit6      | 6.5.x    | 2.9.8    |
-| php7.4-phpunit5      | 5.7.x    | 2.9.8    |
+| php7.4-phpunit9      | 9.1.x    | 3.1.2    |
+| php7.4-phpunit8      | 8.5.x    | 3.1.2    |
+| php7.4-phpunit7      | 7.5.x    | 3.1.2    |
+| php7.4-phpunit6      | 6.5.x    | 3.1.2    |
+| php7.4-phpunit5      | 5.7.x    | 3.1.2    |
 
 #### PHP 7.3
 
 | Tag                  | PHPUnit  | xDebug   |
 | -------------------- | -------- | -------- |
-| php7.3-phpunit9      | 9.1.x    | 2.9.8    |
-| php7.3-phpunit8      | 8.5.x    | 2.9.8    |
-| php7.3-phpunit7      | 7.5.x    | 2.9.8    |
-| php7.3-phpunit6      | 6.5.x    | 2.9.8    |
-| php7.3-phpunit5      | 5.7.x    | 2.9.8    |
+| php7.3-phpunit9      | 9.1.x    | 3.1.2    |
+| php7.3-phpunit8      | 8.5.x    | 3.1.2    |
+| php7.3-phpunit7      | 7.5.x    | 3.1.2    |
+| php7.3-phpunit6      | 6.5.x    | 3.1.2    |
+| php7.3-phpunit5      | 5.7.x    | 3.1.2    |
 
 
 #### PHP 7.2
