@@ -3,7 +3,7 @@ kind: pipeline
 name: build-8.0-images
 
 platform:
-  arch: arm
+  arch: arm64
   os: linux
 
 steps:
