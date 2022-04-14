@@ -20,18 +20,21 @@ default: build
 build:
 	$(info   Building phpunit image with tag $(TAG))
 	docker build -t $(REPO):$(TAG)  \
+			--progress plain \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
 			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 buildnc:
 	docker build --no-cache -t $(REPO):$(TAG)   \
+			--progress plain \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
 			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
 
 buildmajor:
 	docker build --no-cache -t $(REPO):$(TAG_MAJOR) \
+			--progress plain \
 			--build-arg PHP_VER=$(PHP_VER)  \
 			--build-arg PHPUNIT_VER=$(PHPUNIT_VER) \
 			--build-arg XDEBUG_VER=$(XDEBUG_VER) ./
