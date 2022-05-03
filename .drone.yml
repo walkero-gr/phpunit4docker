@@ -1,6 +1,7 @@
 ---
 #######################################################################################
-# phpunit 9 builds ####################################################################
+# phpunit 9 AMD 64 builds #############################################################
+#
 kind: pipeline
 name: phpunit9-amd64
 
@@ -94,6 +95,9 @@ trigger:
     - push
 
 ---
+#######################################################################################
+# phpunit 9 ARM 64 builds #############################################################
+#
 kind: pipeline
 name: phpunit9-arm64
 
@@ -187,6 +191,9 @@ trigger:
     - push
 
 ---
+#######################################################################################
+# phpunit 9 Manifest ##################################################################
+#
 kind: pipeline
 name: manifest-phpunit-9
 
@@ -246,6 +253,861 @@ steps:
 depends_on:
   - phpunit9-amd64
   - phpunit9-arm64
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+
+---
+#######################################################################################
+# phpunit 8 AMD 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit8-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: deploy-8.1-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.1-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php8.1-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.1
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-8.0-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.0-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php8.0-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.0
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.4-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.4-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.3-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.3-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.2-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 8 ARM 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit8-arm64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+- name: deploy-8.1-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.1-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php8.1-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.1
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-8.0-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.0-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php8.0-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.0
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.4-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.4-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.4-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.4
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.3-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.3-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.2-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=8.5.26
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 8 Manifest ##################################################################
+#
+kind: pipeline
+name: manifest-phpunit-8
+
+steps:
+- name: manifest-php8.1-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php8.1-phpunit8
+    template: walkero/phpunit-alpine:php8.1-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php8.0-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php8.0-phpunit8
+    template: walkero/phpunit-alpine:php8.0-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.4-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.4-phpunit8
+    template: walkero/phpunit-alpine:php7.4-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.3-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.3-phpunit8
+    template: walkero/phpunit-alpine:php7.3-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.2-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.2-phpunit8
+    template: walkero/phpunit-alpine:php7.2-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+depends_on:
+  - phpunit8-amd64
+  - phpunit8-arm64
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+
+---
+#######################################################################################
+# phpunit 7 AMD 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit7-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: deploy-7.3-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.3-phpunit7-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit7-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.2-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit7-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit7-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.1-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit7-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit7-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 7 ARM 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit7-arm64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+- name: deploy-7.3-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.3-phpunit7-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.3-phpunit7-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.3
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.2-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit7-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit7-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.1-phpunit-7
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit7-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit7-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=7.5.20
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 7 Manifest ##################################################################
+#
+kind: pipeline
+name: manifest-phpunit-7
+
+steps:
+- name: manifest-php7.3-phpunit7
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.3-phpunit7
+    template: walkero/phpunit-alpine:php7.3-phpunit7-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.2-phpunit7
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.2-phpunit7
+    template: walkero/phpunit-alpine:php7.2-phpunit7-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.1-phpunit7
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.1-phpunit7
+    template: walkero/phpunit-alpine:php7.1-phpunit7-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+depends_on:
+  - phpunit7-amd64
+  - phpunit7-arm64
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 6 AMD 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit6-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: deploy-7.2-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit6-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit6-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.1-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit6-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit6-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 6 ARM 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit6-arm64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+- name: deploy-7.2-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.2-phpunit6-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.2-phpunit6-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.2
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-7.1-phpunit-6
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit6-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit6-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=6.5.14
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 6 Manifest ##################################################################
+#
+kind: pipeline
+name: manifest-phpunit-6
+
+steps:
+- name: manifest-php7.2-phpunit6
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.2-phpunit6
+    template: walkero/phpunit-alpine:php7.2-phpunit6-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php7.1-phpunit6
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.1-phpunit6
+    template: walkero/phpunit-alpine:php7.1-phpunit6-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+depends_on:
+  - phpunit6-amd64
+  - phpunit6-arm64
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+
+---
+#######################################################################################
+# phpunit 5 AMD 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit5-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: deploy-7.1-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit5-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit5-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=5.7.27
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-5.6-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php5.6-phpunit5-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php5.6-phpunit5-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=5.6
+      - PHPUNIT_VER=5.7.27
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 5 ARM 64 builds #############################################################
+#
+kind: pipeline
+name: phpunit5-arm64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+- name: deploy-7.1-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php7.1-phpunit5-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php7.1-phpunit5-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=7.1
+      - PHPUNIT_VER=5.7.27
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+- name: deploy-5.6-phpunit-5
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php5.6-phpunit5-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php5.6-phpunit5-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=5.6
+      - PHPUNIT_VER=5.7.27
+      - XDEBUG_VER=3.1.2
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
+trigger:
+  branch:
+    include:
+    - master
+  event:
+    include:
+    - push
+
+---
+#######################################################################################
+# phpunit 5 Manifest ##################################################################
+#
+kind: pipeline
+name: manifest-phpunit-5
+
+steps:
+- name: manifest-php7.1-phpunit5
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php7.1-phpunit5
+    template: walkero/phpunit-alpine:php7.1-phpunit5-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+- name: manifest-php5.6-phpunit5
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php5.6-phpunit5
+    template: walkero/phpunit-alpine:php5.6-phpunit5-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+depends_on:
+  - phpunit5-amd64
+  - phpunit5-arm64
 
 trigger:
   branch:
