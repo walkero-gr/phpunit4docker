@@ -16,10 +16,10 @@ RUN apk add --update --no-cache bash \
     docker-php-ext-enable mysqli pdo pdo_mysql redis; \
     pecl install xdebug-${XDEBUG_VER} && \
     docker-php-ext-enable xdebug; \
-    curl -fsSL "https://getcomposer.org/installer" -o /tmp/composer-setup.php  && \
+    curl -fsSkL "https://getcomposer.org/installer" -o /tmp/composer-setup.php  && \
     php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /tmp/composer-setup.php; \
-    curl -fsSL "https://phar.phpunit.de/phpunit-${PHPUNIT_VER}.phar" -o /usr/local/bin/phpunit && \
+    curl -fsSkL "https://phar.phpunit.de/phpunit-${PHPUNIT_VER}.phar" -o /usr/local/bin/phpunit && \
     chmod +x /usr/local/bin/phpunit; \
 		apk del curl autoconf cmake build-base; \
 		apk cache clean; \
