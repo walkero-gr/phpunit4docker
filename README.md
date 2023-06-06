@@ -12,13 +12,13 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 ## Features
 
--   These containers stay alive all the time, as soon as you run them
--   Easy usable with docker-compose and multiple project installations
--   Are based on the principle of single logical services per container
--   Cover different versions of PHP and PHPUnit
--   Build from official PHP docker images
--   PHPUnit is able to generate coverage reports
--   Supports PDO MySQL
+- These containers stay alive all the time, as soon as you run them
+- Easy usable with docker-compose and multiple project installations
+- Are based on the principle of single logical services per container
+- Cover different versions of PHP and PHPUnit
+- Build from official PHP docker images
+- PHPUnit is able to generate coverage reports
+- Supports PDO MySQL
 
 ## Usage
 
@@ -26,11 +26,11 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
 
-All the images have **xDebug v3.1.2** installed.
+All the images have **xDebug v3.2.1** installed.
 
-**phpunit9:** php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
+**phpunit9:** php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
 
-**phpunit8:** php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
+**phpunit8:** php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
 
 **phpunit7:** php7.3-phpunit7, php7.2-phpunit7, php7.1-phpunit7
 
@@ -81,29 +81,29 @@ Consult the extension's documentation about the key combinations or the menu sel
 ### PHPStorm
 
 1.  First, we have to configure the connection to the Docker engine:
-    -   Go to `Preferences -> Build, Execution, Deployment -> Docker`
-    -   Create a new Docker configuration:
-        -   for MacOS select `Docker for Mac`
-        -   For Linux and Windows, select the `TCP socket`. Set the `Engine API URL` to:
-            -   Linux: `unix:///var/run/docker.sock`
-            -   Windows: `http://127.0.0.1:2376` or `tcp://localhost:2376`
+    - Go to `Preferences -> Build, Execution, Deployment -> Docker`
+    - Create a new Docker configuration:
+        - for MacOS select `Docker for Mac`
+        - For Linux and Windows, select the `TCP socket`. Set the `Engine API URL` to:
+            - Linux: `unix:///var/run/docker.sock`
+            - Windows: `http://127.0.0.1:2376` or `tcp://localhost:2376`
 2.  Next, we must configure the remote interpreter:
-    -   Go to `Preferences -> Languages & Frameworks -> PHP`
-    -   Create a new PHP CLI interpreter by:
-        -   Clicking on **...** then **+** and select `From Docker, Vagrant, VM, Remote...`
-        -   At the radio buttons select `Docker Compose` with the following values:
-            -   Server: **Docker**
-            -   Configuration file(s): [select here the project docker-compose.yml file]
-            -   Service: **phpunit**
-        -   Click on the `OK` button
-        -   Now the phpunit docker is added to your CLI Interpreters list at the left. At the right, there are the configuration options. Change:
-            -   Lifecycle to `Connect to the existing container ('docker-compose exec')` as these containers run always
-        -   Click on the `OK` button
+    - Go to `Preferences -> Languages & Frameworks -> PHP`
+    - Create a new PHP CLI interpreter by:
+        - Clicking on **...** then **+** and select `From Docker, Vagrant, VM, Remote...`
+        - At the radio buttons select `Docker Compose` with the following values:
+            - Server: **Docker**
+            - Configuration file(s): [select here the project docker-compose.yml file]
+            - Service: **phpunit**
+        - Click on the `OK` button
+        - Now the phpunit docker is added to your CLI Interpreters list at the left. At the right, there are the configuration options. Change:
+            - Lifecycle to `Connect to the existing container ('docker-compose exec')` as these containers run always
+        - Click on the `OK` button
 3.  Time to configure the PHPUnit in the project:
-    -   Go to `Preferences -> Languages & Frameworks -> PHP -> Test Frameworks`
-    -   Create a new PHPUnit configuration by clicking the **+** and selecting `PHPUnit by Remote interpreter...`
-    -   Select from the list the phpunit previously added
-    -   Set the `Path mappings`
-    -   Select `Use Composer Autoloader` and set the `Path to script` to your vendor autoload.php file in the container, i.e. `/var/www/html/vendor/autoload.php`
-    -   Set the default configuration file to the one in your project, with the container path, i.e. `/var/www/html/phpunit.xml.dist`
+    - Go to `Preferences -> Languages & Frameworks -> PHP -> Test Frameworks`
+    - Create a new PHPUnit configuration by clicking the **+** and selecting `PHPUnit by Remote interpreter...`
+    - Select from the list the phpunit previously added
+    - Set the `Path mappings`
+    - Select `Use Composer Autoloader` and set the `Path to script` to your vendor autoload.php file in the container, i.e. `/var/www/html/vendor/autoload.php`
+    - Set the default configuration file to the one in your project, with the container path, i.e. `/var/www/html/phpunit.xml.dist`
 4.  Run your tests

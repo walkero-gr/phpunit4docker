@@ -10,6 +10,25 @@ platform:
   os: linux
 
 steps:
+- name: deploy-8.2-phpunit-9
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.2-phpunit9-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php8.2-phpunit9-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
 - name: deploy-8.1-phpunit-9
   image: plugins/docker
   settings:
@@ -22,8 +41,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.1
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -41,8 +60,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.0
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -60,8 +79,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -79,8 +98,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.3
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -106,6 +125,25 @@ platform:
   os: linux
 
 steps:
+- name: deploy-8.2-phpunit-9
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.2-phpunit9-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php8.2-phpunit9-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
 - name: deploy-8.1-phpunit-9
   image: plugins/docker
   settings:
@@ -118,8 +156,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.1
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -137,8 +175,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.0
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -156,8 +194,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -175,8 +213,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.3
-      - PHPUNIT_VER=9.5.20
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=9.6.8
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -198,6 +236,19 @@ kind: pipeline
 name: manifest-phpunit-9
 
 steps:
+- name: manifest-php8.2-phpunit9
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php8.2-phpunit9
+    template: walkero/phpunit-alpine:php8.2-phpunit9-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
 - name: manifest-php8.1-phpunit9
   image: plugins/manifest
   settings:
@@ -275,6 +326,25 @@ platform:
   os: linux
 
 steps:
+- name: deploy-8.2-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.2-phpunit8-amd64
+    cache_from:
+      - walkero/phpunit-alpine:php8.2-phpunit8-amd64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
 - name: deploy-8.1-phpunit-8
   image: plugins/docker
   settings:
@@ -287,8 +357,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.1
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -306,8 +376,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.0
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -325,8 +395,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -344,8 +414,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.3
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -363,8 +433,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.2
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -390,6 +460,25 @@ platform:
   os: linux
 
 steps:
+- name: deploy-8.2-phpunit-8
+  image: plugins/docker
+  settings:
+    repo: walkero/phpunit-alpine
+    tags:
+      - php8.2-phpunit8-arm64
+    cache_from:
+      - walkero/phpunit-alpine:php8.2-phpunit8-arm64
+    dockerfile: alpine/Dockerfile
+    context: /drone/src/alpine/
+    build_args:
+      - PHP_VER=8.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+
 - name: deploy-8.1-phpunit-8
   image: plugins/docker
   settings:
@@ -402,8 +491,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.1
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -421,8 +510,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=8.0
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -440,8 +529,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.4
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -459,8 +548,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.3
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -478,8 +567,8 @@ steps:
     context: /drone/src/alpine/
     build_args:
       - PHP_VER=7.2
-      - PHPUNIT_VER=8.5.26
-      - XDEBUG_VER=3.1.2
+      - PHPUNIT_VER=8.5.33
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -501,6 +590,19 @@ kind: pipeline
 name: manifest-phpunit-8
 
 steps:
+- name: manifest-php8.2-phpunit8
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_PASSWORD
+    target: walkero/phpunit-alpine:php8.2-phpunit8
+    template: walkero/phpunit-alpine:php8.2-phpunit8-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
 - name: manifest-php8.1-phpunit8
   image: plugins/manifest
   settings:
@@ -604,7 +706,7 @@ steps:
     build_args:
       - PHP_VER=7.3
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -623,7 +725,7 @@ steps:
     build_args:
       - PHP_VER=7.2
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -642,7 +744,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -681,7 +783,7 @@ steps:
     build_args:
       - PHP_VER=7.3
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -700,7 +802,7 @@ steps:
     build_args:
       - PHP_VER=7.2
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -719,7 +821,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=7.5.20
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -817,7 +919,7 @@ steps:
     build_args:
       - PHP_VER=7.2
       - PHPUNIT_VER=6.5.14
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -836,7 +938,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=6.5.14
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -875,7 +977,7 @@ steps:
     build_args:
       - PHP_VER=7.2
       - PHPUNIT_VER=6.5.14
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -894,7 +996,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=6.5.14
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -980,7 +1082,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=5.7.27
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -999,7 +1101,7 @@ steps:
     build_args:
       - PHP_VER=5.6
       - PHPUNIT_VER=5.7.27
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -1038,7 +1140,7 @@ steps:
     build_args:
       - PHP_VER=7.1
       - PHPUNIT_VER=5.7.27
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
@@ -1057,7 +1159,7 @@ steps:
     build_args:
       - PHP_VER=5.6
       - PHPUNIT_VER=5.7.27
-      - XDEBUG_VER=3.1.2
+      - XDEBUG_VER=3.2.1
     username:
       from_secret: DOCKERHUB_USERNAME
     password:
