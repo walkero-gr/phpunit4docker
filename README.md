@@ -28,6 +28,8 @@ All images are built for **AMD64** and **ARM64** platforms, so they can be used 
 
 All the images have **xDebug v3.2.1** installed.
 
+**phpunit10:** php8.2-phpunit10, php8.1-phpunit10
+
 **phpunit9:** php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
 
 **phpunit8:** php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
