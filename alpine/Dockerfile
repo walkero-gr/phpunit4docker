@@ -9,8 +9,9 @@ LABEL maintainer="Georgios Sokianos <walkero@gmail.com>"
 
 RUN apk add --update --no-cache bash \
         autoconf \
+        build-base \
         cmake \
-        build-base; \
+        linux-headers; \
     docker-php-ext-install mysqli pdo pdo_mysql; \
     pecl install redis && \
     docker-php-ext-enable mysqli pdo pdo_mysql redis; \
@@ -21,7 +22,7 @@ RUN apk add --update --no-cache bash \
     rm -rf /tmp/composer-setup.php; \
     curl -fsSkL "https://phar.phpunit.de/phpunit-${PHPUNIT_VER}.phar" -o /usr/local/bin/phpunit && \
     chmod +x /usr/local/bin/phpunit; \
-		apk del curl autoconf cmake build-base; \
+		apk del curl autoconf cmake build-base linux-headers; \
 		apk cache clean; \
     rm -rf /var/cache/apk/* /tmp/* /var/tmp/*;
 
