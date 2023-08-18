@@ -1,5 +1,5 @@
 local buildMain(_arch='amd64', _phpUnitVer, _phpVersions) =
-	local _xdebugVer = '3.2.1';
+	local _xdebugVer = '3.2.2';
 	local _phpUnitMajor = std.split(_phpUnitVer, '.');
 	{
 		"kind": 'pipeline',
@@ -24,7 +24,7 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions) =
 					],
 					"dockerfile": 'Dockerfile',
 					"purge": true,
-					"dry_run": true,
+					// "dry_run": true,
 					"compress": true,
 					"build_args": [
 						'PHP_VER=' + _php,
@@ -63,12 +63,12 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions) =
 
 {
 	phpunit10: {
-		'amd': buildMain('amd64', '10.2.1', ['8.1', '8.2']),
-		'arm': buildMain('arm64', '10.2.1', ['8.1', '8.2']),
+		'amd': buildMain('amd64', '10.3.2', ['8.1', '8.2']),
+		'arm': buildMain('arm64', '10.3.2', ['8.1', '8.2']),
 	},
 	phpunit9: {
-		'amd': buildMain('amd64', '9.6.8', ['7.3', '7.4', '8.0', '8.1', '8.2']),
-		'arm': buildMain('arm64', '9.6.8', ['7.3', '7.4', '8.0', '8.1', '8.2']),
+		'amd': buildMain('amd64', '9.6.10', ['7.3', '7.4', '8.0', '8.1', '8.2']),
+		'arm': buildMain('arm64', '9.6.10', ['7.3', '7.4', '8.0', '8.1', '8.2']),
 	},
 	phpunit8: {
 		'amd': buildMain('amd64', '8.5.33', ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']),

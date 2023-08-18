@@ -26,7 +26,7 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
 
-All the images have **xDebug v3.2.1** installed.
+All the images have **xDebug v3.2.2** installed.
 
 **phpunit10:** php8.2-phpunit10, php8.1-phpunit10
 

@@ -46,8 +46,8 @@ local buildManifest(_phpUnitVer, _phpVersions) =
 	};
 
 {
-	phpunit10: buildManifest('10.2.1', ['8.1', '8.2']),
-	phpunit9: buildManifest('9.6.8', ['7.3', '7.4', '8.0', '8.1', '8.2']),
+	phpunit10: buildManifest('10.3.2', ['8.1', '8.2']),
+	phpunit9: buildManifest('9.6.10', ['7.3', '7.4', '8.0', '8.1', '8.2']),
 	phpunit8: buildManifest('8.5.33', ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']),
 	phpunit7: buildManifest('7.5.20', ['7.1', '7.2', '7.3']),
 	phpunit6: buildManifest('6.5.14', ['7.1', '7.2']),
