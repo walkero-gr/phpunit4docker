@@ -1,4 +1,4 @@
-local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
+local buildMain(_arch='amd64', _phpUnitVer, _componentsVersions) =
 	local _phpUnitMajor = std.split(_phpUnitVer, '.');
 	{
 		"kind": 'pipeline',
@@ -10,25 +10,25 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
 		},
 		"steps": [
 			{
-				"name": 'deploy-' + _php + '-phpunit-' + _phpUnitMajor[0],
+				"name": 'deploy-' + _comp[0] + '-phpunit-' + _phpUnitMajor[0],
 				"pull": 'always',
 				"image": 'plugins/docker',
 				"settings": {
 					"repo": 'walkero/phpunit-alpine',
 					"tags": [
-						'php' + _php + '-phpunit' + _phpUnitMajor[0] + '-' + _arch
+						'php' + _comp[0] + '-phpunit' + _phpUnitMajor[0] + '-' + _arch
 					],
 					"cache_from": [
-						'walkero/phpunit-alpine:php' + _php + '-phpunit' + _phpUnitMajor[0] + '-' + _arch
+						'walkero/phpunit-alpine:php' + _comp[0] + '-phpunit' + _phpUnitMajor[0] + '-' + _arch
 					],
 					"dockerfile": 'Dockerfile',
 					"purge": true,
 					// "dry_run": true,
 					"compress": true,
 					"build_args": [
-						'PHP_VER=' + _php,
+						'PHP_VER=' + _comp[0],
 						'PHPUNIT_VER=' + _phpUnitVer,
-						'XDEBUG_VER=' + _xdebugVer
+						'XDEBUG_VER=' + _comp[1]
 					],
 					"username": {
 						"from_secret": 'DOCKERHUB_USERNAME'
@@ -38,7 +38,7 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
 					},
 				}
 			}
-			for _php in _phpVersions
+			for _comp in _componentsVersions
 		],
 		"trigger": {
 			"branch": {
@@ -60,37 +60,34 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
 		}
 	};
 
+
+local _xdb33 = '3.3.0';
+local _xdb31 = '3.1.6';
+local _xdb29 = '2.9.8';
+local _xdb25 = '2.5.5';
 {
 	phpunit10: {
-		'amd': buildMain('amd64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
-		'arm': buildMain('arm64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
+		'amd': buildMain('amd64', '10.5.0', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '10.5.0', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
-	phpunit9-33: {
-		'amd': buildMain('amd64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
-		'arm': buildMain('arm64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
+	phpunit9: {
+		'amd': buildMain('amd64', '9.6.14', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '9.6.14', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
-	phpunit9-31: {
-		'amd': buildMain('amd64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
-		'arm': buildMain('arm64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
-	},
-	phpunit8-33: {
-		'amd': buildMain('amd64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
-		'arm': buildMain('arm64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
-	},
-	phpunit8-31: {
-		'amd': buildMain('amd64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
-		'arm': buildMain('arm64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
+	phpunit8: {
+		'amd': buildMain('amd64', '8.5.35', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '8.5.35', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
 	phpunit7: {
-		'amd': buildMain('amd64', '7.5.20', ['7.1', '7.2', '7.3'], '2.9.8'),
-		'arm': buildMain('arm64', '7.5.20', ['7.1', '7.2', '7.3'], '2.9.8'),
+		'amd': buildMain('amd64', '7.5.20', [['7.1', _xdb29], ['7.2', _xdb29], ['7.3', _xdb29]]),
+		'arm': buildMain('arm64', '7.5.20', [['7.1', _xdb29], ['7.2', _xdb29], ['7.3', _xdb29]]),
 	},
 	phpunit6: {
-		'amd': buildMain('amd64', '6.5.14', ['7.1', '7.2'], '2.9.8'),
-		'arm': buildMain('arm64', '6.5.14', ['7.1', '7.2'], '2.9.8'),
+		'amd': buildMain('amd64', '6.5.14', [['7.1', _xdb29], ['7.2', _xdb29]]),
+		'arm': buildMain('arm64', '6.5.14', [['7.1', _xdb29], ['7.2', _xdb29]]),
 	},
 	phpunit5: {
-		'amd': buildMain('amd64', '5.7.27', ['5.6', '7.1'], '2.5.5'),
-		'arm': buildMain('arm64', '5.7.27', ['5.6', '7.1'], '2.5.5'),
+		'amd': buildMain('amd64', '5.7.27', [['5.6', _xdb25], ['7.1', _xdb29]]),
+		'arm': buildMain('arm64', '5.7.27', [['5.6', _xdb25], ['7.1', _xdb29]]),
 	}
 }
