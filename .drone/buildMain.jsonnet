@@ -1,5 +1,4 @@
-local buildMain(_arch='amd64', _phpUnitVer, _phpVersions) =
-	local _xdebugVer = '3.2.2';
+local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
 	local _phpUnitMajor = std.split(_phpUnitVer, '.');
 	{
 		"kind": 'pipeline',
@@ -63,27 +62,35 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions) =
 
 {
 	phpunit10: {
-		'amd': buildMain('amd64', '10.3.2', ['8.1', '8.2']),
-		'arm': buildMain('arm64', '10.3.2', ['8.1', '8.2']),
+		'amd': buildMain('amd64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
+		'arm': buildMain('arm64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
 	},
-	phpunit9: {
-		'amd': buildMain('amd64', '9.6.10', ['7.3', '7.4', '8.0', '8.1', '8.2']),
-		'arm': buildMain('arm64', '9.6.10', ['7.3', '7.4', '8.0', '8.1', '8.2']),
+	phpunit9_3.3: {
+		'amd': buildMain('amd64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
+		'arm': buildMain('arm64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
 	},
-	phpunit8: {
-		'amd': buildMain('amd64', '8.5.33', ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']),
-		'arm': buildMain('arm64', '8.5.33', ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']),
+	phpunit9_3.1: {
+		'amd': buildMain('amd64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
+		'arm': buildMain('arm64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
+	},
+	phpunit8_3.3: {
+		'amd': buildMain('amd64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
+		'arm': buildMain('arm64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
+	},
+	phpunit8_3.1: {
+		'amd': buildMain('amd64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
+		'arm': buildMain('arm64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
 	},
 	phpunit7: {
-		'amd': buildMain('amd64', '7.5.20', ['7.1', '7.2', '7.3']),
-		'arm': buildMain('arm64', '7.5.20', ['7.1', '7.2', '7.3']),
+		'amd': buildMain('amd64', '7.5.20', ['7.1', '7.2', '7.3'], '2.9.8'),
+		'arm': buildMain('arm64', '7.5.20', ['7.1', '7.2', '7.3'], '2.9.8'),
 	},
 	phpunit6: {
-		'amd': buildMain('amd64', '6.5.14', ['7.1', '7.2']),
-		'arm': buildMain('arm64', '6.5.14', ['7.1', '7.2']),
+		'amd': buildMain('amd64', '6.5.14', ['7.1', '7.2'], '2.9.8'),
+		'arm': buildMain('arm64', '6.5.14', ['7.1', '7.2'], '2.9.8'),
 	},
 	phpunit5: {
-		'amd': buildMain('amd64', '5.7.27', ['5.6', '7.1']),
-		'arm': buildMain('arm64', '5.7.27', ['5.6', '7.1']),
+		'amd': buildMain('amd64', '5.7.27', ['5.6', '7.1'], '2.5.5'),
+		'arm': buildMain('arm64', '5.7.27', ['5.6', '7.1'], '2.5.5'),
 	}
 }

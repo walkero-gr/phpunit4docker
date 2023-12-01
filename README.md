@@ -15,10 +15,10 @@ All the docker images are based on Alpine Linux and have a really small footprin
 - These containers stay alive all the time, as soon as you run them
 - Easy usable with docker-compose and multiple project installations
 - Are based on the principle of single logical services per container
-- Cover different versions of PHP and PHPUnit
+- Multiple versions of PHP and PHPUnit are supported
 - Build from official PHP docker images
-- PHPUnit is able to generate coverage reports
-- Supports PDO MySQL
+- PHPUnit is able to generate coverage reports using xdebug
+- PDO MySQL and Redis extensions are installed
 
 ## Usage
 
@@ -26,13 +26,11 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
 
-All the images have **xDebug v3.2.2** installed.
+**phpunit10:** php8.3-phpunit10, php8.2-phpunit10, php8.1-phpunit10
 
-**phpunit10:** php8.2-phpunit10, php8.1-phpunit10
+**phpunit9:** php8.3-phpunit9, php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
 
-**phpunit9:** php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
-
-**phpunit8:** php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
+**phpunit8:** php8.3-phpunit8, php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
 
 **phpunit7:** php7.3-phpunit7, php7.2-phpunit7, php7.1-phpunit7
 
@@ -41,6 +39,8 @@ All the images have **xDebug v3.2.2** installed.
 **phpunit5:** php7.1-phpunit5, php5.6-phpunit5
 
 Aligned release based on PHPUnit [Supported Versions](https://phpunit.de/supported-versions.html)
+
+All the images have **xDebug** installed, aligned with the [Supported Versions](https://xdebug.org/docs/compat).
 
 Find the latest tags at [Docker Hub](https://hub.docker.com/r/walkero/phpunit-alpine/tags)
 
