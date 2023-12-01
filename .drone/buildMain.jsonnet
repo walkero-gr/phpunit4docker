@@ -65,19 +65,19 @@ local buildMain(_arch='amd64', _phpUnitVer, _phpVersions, _xdebugVer) =
 		'amd': buildMain('amd64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
 		'arm': buildMain('arm64', '10.5.0', ['8.1', '8.2', '8.3'], '3.3.0'),
 	},
-	phpunit9_33: {
+	phpunit9-33: {
 		'amd': buildMain('amd64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
 		'arm': buildMain('arm64', '9.6.14', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
 	},
-	phpunit9_31: {
+	phpunit9-31: {
 		'amd': buildMain('amd64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
 		'arm': buildMain('arm64', '9.6.14', ['7.3', '7.4'], '3.1.6'),
 	},
-	phpunit8_33: {
+	phpunit8-33: {
 		'amd': buildMain('amd64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
 		'arm': buildMain('arm64', '8.5.35', ['8.0', '8.1', '8.2', '8.3'], '3.3.0'),
 	},
-	phpunit8_31: {
+	phpunit8-31: {
 		'amd': buildMain('amd64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
 		'arm': buildMain('arm64', '8.5.35', ['7.2', '7.3', '7.4'], '3.1.6'),
 	},
