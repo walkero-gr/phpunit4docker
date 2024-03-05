@@ -11,8 +11,14 @@ RUN apk add --update --no-cache bash \
         autoconf \
         build-base \
         cmake \
+				libxml2-dev \
         linux-headers; \
-    docker-php-ext-install mysqli pdo pdo_mysql; \
+		docker-php-ext-configure soap --enable-soap; \
+    docker-php-ext-install \
+	  		mysqli \
+		 		pdo \
+		 		pdo_mysql \
+		 		soap; \
     pecl install redis && \
     docker-php-ext-enable mysqli pdo pdo_mysql redis; \
     pecl install xdebug-${XDEBUG_VER} && \
