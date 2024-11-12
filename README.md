@@ -26,6 +26,8 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
 
+**phpunit11:** php8.3-phpunit11, php8.2-phpunit11
+
 **phpunit10:** php8.3-phpunit10, php8.2-phpunit10, php8.1-phpunit10
 
 **phpunit9:** php8.3-phpunit9, php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9

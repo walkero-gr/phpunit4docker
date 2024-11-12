@@ -61,22 +61,26 @@ local buildMain(_arch='amd64', _phpUnitVer, _componentsVersions) =
 	};
 
 
-local _xdb33 = '3.3.0';
+local _xdb33 = '3.3.2';
 local _xdb31 = '3.1.6';
 local _xdb29 = '2.9.8';
 local _xdb25 = '2.5.5';
 {
+	phpunit11: {
+		'amd': buildMain('amd64', '11.4.3', [['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '11.4.3', [['8.2', _xdb33], ['8.3', _xdb33]]),
+	},
 	phpunit10: {
-		'amd': buildMain('amd64', '10.5.0', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
-		'arm': buildMain('arm64', '10.5.0', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'amd': buildMain('amd64', '10.5.38', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '10.5.38', [['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
 	phpunit9: {
-		'amd': buildMain('amd64', '9.6.14', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
-		'arm': buildMain('arm64', '9.6.14', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'amd': buildMain('amd64', '9.6.21', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '9.6.21', [['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
 	phpunit8: {
-		'amd': buildMain('amd64', '8.5.35', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
-		'arm': buildMain('arm64', '8.5.35', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'amd': buildMain('amd64', '8.5.40', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
+		'arm': buildMain('arm64', '8.5.40', [['7.2', _xdb31], ['7.3', _xdb31], ['7.4', _xdb31], ['8.1', _xdb33], ['8.2', _xdb33], ['8.3', _xdb33]]),
 	},
 	phpunit7: {
 		'amd': buildMain('amd64', '7.5.20', [['7.1', _xdb29], ['7.2', _xdb29], ['7.3', _xdb29]]),

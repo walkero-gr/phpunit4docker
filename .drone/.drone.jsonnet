@@ -4,6 +4,9 @@ local buildMain = import '.drone/buildMain.jsonnet';
 
 [
 	awsbuilder['poweron'],
+	buildMain.phpunit11.amd,
+	buildMain.phpunit11.arm,
+	buildManifest.phpunit11,
 	buildMain.phpunit10.amd,
 	buildMain.phpunit10.arm,
 	buildManifest.phpunit10,
