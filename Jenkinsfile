@@ -195,10 +195,6 @@ pipeline {
 			matrix {
 				axes {
 					axis {
-						name 'ARCH'
-						values 'amd64', 'arm64'
-					}
-					axis {
 						name 'PHPUNIT'
 						values '12', '11', '10', '9', '8'
 					}
