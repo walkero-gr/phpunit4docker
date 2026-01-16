@@ -190,53 +190,101 @@ pipeline {
 				}
 			}
 		}
-		// stage('create-manifests') {
-		// 	when { branch 'master' }
-		// 	matrix {
-		// 		axes {
-		// 			axis {
-		// 				name 'GCC'
-		// 				values '11', '8'
-		// 			}
-		// 		}
-		// 		stages {
-		// 			stage('create') {
-		// 				steps {
-		// 					sh '''
-		// 						docker manifest create \
-		// 							--amend ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME} \
-		// 							${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}-amd64 \
-		// 							${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}-arm64
-
-		// 						docker manifest create \
-		// 							--amend ${DOCKERHUB_REPO}:os4-gcc${GCC}-base \
-		// 							${DOCKERHUB_REPO}:os4-gcc${GCC}-base-amd64 \
-		// 							${DOCKERHUB_REPO}:os4-gcc${GCC}-base-arm64
-		// 					'''
-		// 				}
-		// 			}
-		// 			stage('push-manifests') {
-		// 				when { branch 'master' }
-		// 				steps {
-		// 					sh '''
-		// 						echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-		// 						docker manifest push ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}
-		// 						docker manifest push ${DOCKERHUB_REPO}:os4-gcc${GCC}-base
-		// 						docker logout
-		// 					'''
-		// 				}
-		// 			}
-		// 			// stage('clear-manifests') {
-		// 			// 	when { branch 'master' }
-		// 			// 	steps {
-		// 			// 		sh '''
-		// 			// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}
-		// 			// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base
-		// 			// 		'''
-		// 			// 	}
-		// 			// }
-		// 		}
-		// 	}
-		// }
+		stage('create-manifests') {
+			when { branch 'master' }
+			matrix {
+				axes {
+					axis {
+						name 'ARCH'
+						values 'amd64', 'arm64'
+					}
+					axis {
+						name 'PHPUNIT'
+						values '12', '11', '10', '9', '8'
+					}
+					axis {
+						name 'PHP'
+						values '7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'
+					}
+				}
+				excludes {
+					// phpunit 12: only PHP 8.3, 8.4
+					exclude {
+						axis {
+							name 'PHPUNIT'
+							values '12'
+						}
+						axis {
+							name 'PHP'
+							values '7.2', '7.3', '7.4', '8.1', '8.2'
+						}
+					}
+					// phpunit 11: only PHP 8.2, 8.3, 8.4
+					exclude {
+						axis {
+							name 'PHPUNIT'
+							values '11'
+						}
+						axis {
+							name 'PHP'
+							values '7.2', '7.3', '7.4', '8.1'
+						}
+					}
+					// phpunit 10: only PHP 8.1, 8.2, 8.3, 8.4
+					exclude {
+						axis {
+							name 'PHPUNIT'
+							values '10'
+						}
+						axis {
+							name 'PHP'
+							values '7.2', '7.3', '7.4'
+						}
+					}
+					// phpunit 9: only PHP 7.3, 7.4, 8.1, 8.2, 8.3, 8.4
+					exclude {
+						axis {
+							name 'PHPUNIT'
+							values '9'
+						}
+						axis {
+							name 'PHP'
+							values '7.2'
+						}
+					}
+				}
+				stages {
+					stage('create') {
+						steps {
+							sh '''
+								docker manifest create \
+									--amend ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT} \
+									${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-amd64 \
+									${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-arm64
+							'''
+						}
+					}
+					stage('push-manifests') {
+						when { branch 'master' }
+						steps {
+							sh '''
+								echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
+								docker manifest push ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}
+								docker logout
+							'''
+						}
+					}
+					// stage('clear-manifests') {
+					// 	when { branch 'master' }
+					// 	steps {
+					// 		sh '''
+					// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}
+					// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base
+					// 		'''
+					// 	}
+					// }
+				}
+			}
+		}
 	}
 }
