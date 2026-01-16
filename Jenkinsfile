@@ -93,7 +93,7 @@ pipeline {
 						steps {
 							script {								
 								// Determine PHPUnit and XDebug full versions
-								def PHPUNIT_VER = env.PHPUNIT_VER_${env.PHPUNIT}
+								def PHPUNIT_VER = env."PHPUNIT_VER_${env.PHPUNIT}"
 								def XDEBUG_VER
 
 								if (env.PHP in ['8.1', '8.2', '8.3', '8.4', '8.5']) {
