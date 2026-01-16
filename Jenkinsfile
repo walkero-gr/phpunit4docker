@@ -6,7 +6,8 @@ pipeline {
 		AWS_DEFAULT_REGION="eu-north-1"
 		DOCKERHUB_REPO="walkero/phpunit-alpine"
 		// Xdebug version variables - easy to update
-		XDEBUG_VER_34="3.4.1"
+		XDEBUG_VER_35="3.5.0"
+		XDEBUG_VER_34="3.4.7"
 		XDEBUG_VER_33="3.3.2"
 		XDEBUG_VER_31="3.1.6"
 		// PHPUnit version mappings
@@ -17,6 +18,7 @@ pipeline {
 	}
 	stages {
 		stage('aws-poweron') {
+			agent { label "initiator" }
 			when { branch 'master' }
 			steps {
 				sh '''
@@ -25,6 +27,7 @@ pipeline {
 			}
 		}
 		stage('build-images') {
+			agent { label "agent-${ARCH}" }
 			when { branch 'master' }
 			matrix {
 				axes {
@@ -34,14 +37,25 @@ pipeline {
 					}
 					axis {
 						name 'PHPUNIT'
-						values '11', '10', '9', '8'
+						values '12', '11', '10', '9', '8'
 					}
 					axis {
 						name 'PHP'
-						values '7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4'
+						values '7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'
 					}
 				}
 				excludes {
+					// phpunit 12: only PHP 8.3, 8.4
+					exclude {
+						axis {
+							name 'PHPUNIT'
+							values '12'
+						}
+						axis {
+							name 'PHP'
+							values '7.2', '7.3', '7.4', '8.1', '8.2'
+						}
+					}
 					// phpunit 11: only PHP 8.2, 8.3, 8.4
 					exclude {
 						axis {
@@ -76,7 +90,6 @@ pipeline {
 						}
 					}
 				}
-				agent { label "agent-${ARCH}" }
 				stages {
 					stage('build') {
 						steps {
@@ -85,26 +98,34 @@ pipeline {
 								def PHPUNIT_VER
 								def XDEBUG_VER
 								switch(env.PHPUNIT) {
+									case '12':
+										PHPUNIT_VER = env.PHPUNIT_VER_11
+										if (env.PHP in ['8.4', '8.5']) {
+											XDEBUG_VER = env.XDEBUG_VER_35
+										} else {
+											XDEBUG_VER = env.XDEBUG_VER_34
+										}
+										break
 									case '11':
 										PHPUNIT_VER = env.PHPUNIT_VER_11
-										if (env.PHP in ['8.4']) {
-											XDEBUG_VER = env.XDEBUG_VER_34
+										if (env.PHP in ['8.4', '8.5']) {
+											XDEBUG_VER = env.XDEBUG_VER_35
 										} else {
 											XDEBUG_VER = env.XDEBUG_VER_33
 										}
 										break
 									case '10':
 										PHPUNIT_VER = env.PHPUNIT_VER_10
-										if (env.PHP in ['8.4']) {
-											XDEBUG_VER = env.XDEBUG_VER_34
+										if (env.PHP in ['8.4', '8.5']) {
+											XDEBUG_VER = env.XDEBUG_VER_35
 										} else {
 											XDEBUG_VER = env.XDEBUG_VER_33
 										}
 										break
 									case '9':
 										PHPUNIT_VER = env.PHPUNIT_VER_9
-										if (env.PHP in ['8.4']) {
-											XDEBUG_VER = env.XDEBUG_VER_34
+										if (env.PHP in ['8.4', '8.5']) {
+											XDEBUG_VER = env.XDEBUG_VER_35
 										} else if (env.PHP in ['8.1', '8.2', '8.3']) {
 											XDEBUG_VER = env.XDEBUG_VER_33
 										} else {
@@ -113,7 +134,7 @@ pipeline {
 										break
 									case '8':
 										PHPUNIT_VER = env.PHPUNIT_VER_8
-										if (env.PHP in ['8.4']) {
+										if (env.PHP in ['8.4', '8.5']) {
 											XDEBUG_VER = env.XDEBUG_VER_34
 										} else if (env.PHP in ['8.1', '8.2', '8.3']) {
 											XDEBUG_VER = env.XDEBUG_VER_33
@@ -136,21 +157,20 @@ pipeline {
 							}
 						}
 					}
-					// stage('dockerhub-login') {
-					// 	steps {
-					// 		sh '''
-					// 			echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-					// 		'''
-					// 	}
-					// }
-					// stage('push-images') {
-					// 	steps {
-					// 		sh '''
-					// 			docker push ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}-${ARCH}
-					// 			docker push ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${ARCH}
-					// 		'''
-					// 	}
-					// }
+					stage('dockerhub-login') {
+						steps {
+							sh '''
+								echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
+							'''
+						}
+					}
+					stage('push-images') {
+						steps {
+							sh '''
+								docker push ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-${ARCH}
+							'''
+						}
+					}
 					// stage('remove-images') {
 					// 	steps {
 					// 		sh '''
@@ -162,13 +182,13 @@ pipeline {
 					// 	}
 					// }
 				}
-				// post {
-				// 	always {
-				// 		sh '''
-				// 			docker logout
-				// 		'''
-				// 	}
-				// }
+				post {
+					always {
+						sh '''
+							docker logout
+						'''
+					}
+				}
 			}
 		}
 		// stage('create-manifests') {
@@ -207,15 +227,15 @@ pipeline {
 		// 					'''
 		// 				}
 		// 			}
-		// 			stage('clear-manifests') {
-		// 				when { branch 'master' }
-		// 				steps {
-		// 					sh '''
-		// 						docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}
-		// 						docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base
-		// 					'''
-		// 				}
-		// 			}
+		// 			// stage('clear-manifests') {
+		// 			// 	when { branch 'master' }
+		// 			// 	steps {
+		// 			// 		sh '''
+		// 			// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base-${TAG_NAME}
+		// 			// 			docker manifest rm ${DOCKERHUB_REPO}:os4-gcc${GCC}-base
+		// 			// 		'''
+		// 			// 	}
+		// 			// }
 		// 		}
 		// 	}
 		// }
