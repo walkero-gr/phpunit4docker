@@ -18,7 +18,6 @@ pipeline {
 	}
 	stages {
 		stage('aws-poweron') {
-			agent { label "initiator" }
 			when { branch 'master' }
 			steps {
 				sh '''
