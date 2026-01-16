@@ -11,10 +11,11 @@ pipeline {
 		XDEBUG_VER_33="3.3.2"
 		XDEBUG_VER_31="3.1.6"
 		// PHPUnit version mappings
-		PHPUNIT_VER_11="11.4.3"
-		PHPUNIT_VER_10="10.5.38"
-		PHPUNIT_VER_9="9.6.21"
-		PHPUNIT_VER_8="8.5.40"
+		PHPUNIT_VER_12="12.5.5"
+		PHPUNIT_VER_11="11.5.47"
+		PHPUNIT_VER_10="10.5.60"
+		PHPUNIT_VER_9="9.6.31"
+		PHPUNIT_VER_8="8.5.50"
 	}
 	stages {
 		stage('aws-poweron') {
@@ -94,55 +95,13 @@ pipeline {
 						steps {
 							script {								
 								// Determine PHPUnit and XDebug full versions
-								def PHPUNIT_VER
+								def PHPUNIT_VER = env.PHPUNIT_VER_${env.PHPUNIT}
 								def XDEBUG_VER
-								switch(env.PHPUNIT) {
-									case '12':
-										PHPUNIT_VER = env.PHPUNIT_VER_11
-										if (env.PHP in ['8.4', '8.5']) {
-											XDEBUG_VER = env.XDEBUG_VER_35
-										} else {
-											XDEBUG_VER = env.XDEBUG_VER_34
-										}
-										break
-									case '11':
-										PHPUNIT_VER = env.PHPUNIT_VER_11
-										if (env.PHP in ['8.4', '8.5']) {
-											XDEBUG_VER = env.XDEBUG_VER_35
-										} else {
-											XDEBUG_VER = env.XDEBUG_VER_33
-										}
-										break
-									case '10':
-										PHPUNIT_VER = env.PHPUNIT_VER_10
-										if (env.PHP in ['8.4', '8.5']) {
-											XDEBUG_VER = env.XDEBUG_VER_35
-										} else {
-											XDEBUG_VER = env.XDEBUG_VER_33
-										}
-										break
-									case '9':
-										PHPUNIT_VER = env.PHPUNIT_VER_9
-										if (env.PHP in ['8.4', '8.5']) {
-											XDEBUG_VER = env.XDEBUG_VER_35
-										} else if (env.PHP in ['8.1', '8.2', '8.3']) {
-											XDEBUG_VER = env.XDEBUG_VER_33
-										} else {
-											XDEBUG_VER = env.XDEBUG_VER_31
-										}
-										break
-									case '8':
-										PHPUNIT_VER = env.PHPUNIT_VER_8
-										if (env.PHP in ['8.4', '8.5']) {
-											XDEBUG_VER = env.XDEBUG_VER_34
-										} else if (env.PHP in ['8.1', '8.2', '8.3']) {
-											XDEBUG_VER = env.XDEBUG_VER_33
-										} else {
-											XDEBUG_VER = env.XDEBUG_VER_31
-										}
-										break
-									default:
-										PHPUNIT_VER = env.PHPUNIT
+
+								if (env.PHP in ['8.1', '8.2', '8.3', '8.4', '8.5']) {
+									XDEBUG_VER = env.XDEBUG_VER_35
+								} else if (env.PHP in ['7.2', '7.3', '7.4']) {
+									XDEBUG_VER = env.XDEBUG_VER_31
 								}
 								sh '''
 									docker build \
