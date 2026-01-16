@@ -61,7 +61,7 @@ local buildMain(_arch='amd64', _phpUnitVer, _componentsVersions) =
 	};
 
 
-local _xdb34 = '3.4.0';
+local _xdb34 = '3.4.1';
 local _xdb33 = '3.3.2';
 local _xdb31 = '3.1.6';
 local _xdb29 = '2.9.8';
