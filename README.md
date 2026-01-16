@@ -26,13 +26,15 @@ All the docker images are based on Alpine Linux and have a really small footprin
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
 
-**phpunit11:** php8.4-phpunit11, php8.3-phpunit11, php8.2-phpunit11
+**phpunit12:** php8.5-phpunit12, php8.4-phpunit12, php8.3-phpunit12
 
-**phpunit10:** php8.4-phpunit10, php8.3-phpunit10, php8.2-phpunit10, php8.1-phpunit10
+**phpunit11:** php8.5-phpunit11, php8.4-phpunit11, php8.3-phpunit11, php8.2-phpunit11
 
-**phpunit9:** php8.4-phpunit9, php8.3-phpunit9, php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
+**phpunit10:** php8.5-phpunit10, php8.4-phpunit10, php8.3-phpunit10, php8.2-phpunit10, php8.1-phpunit10
 
-**phpunit8:** php8.4-phpunit8, php8.3-phpunit8, php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
+**phpunit9:** php8.5-phpunit9, php8.4-phpunit9, php8.3-phpunit9, php8.2-phpunit9, php8.1-phpunit9, php8.0-phpunit9, php7.4-phpunit9, php7.3-phpunit9
+
+**phpunit8:** php8.5-phpunit8, php8.4-phpunit8, php8.3-phpunit8, php8.2-phpunit8, php8.1-phpunit8, php8.0-phpunit8, php7.4-phpunit8, php7.3-phpunit8, php7.2-phpunit8
 
 **phpunit7:** php7.3-phpunit7, php7.2-phpunit7, php7.1-phpunit7
 
