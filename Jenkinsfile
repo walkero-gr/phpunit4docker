@@ -127,94 +127,24 @@ pipeline {
 							'''
 						}
 					}
-				}
-				post {
-					always {
-						sh '''
-							docker logout
-						'''
-					}
-				}
-			}
-		}
-		stage('create-manifests') {
-			when { branch 'master' }
-			matrix {
-				axes {
-					axis {
-						name 'PHPUNIT'
-						values '12', '11', '10', '9', '8'
-					}
-					axis {
-						name 'PHP'
-						values '7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'
-					}
-				}
-				excludes {
-					// phpunit 12: only PHP 8.3, 8.4
-					exclude {
-						axis {
-							name 'PHPUNIT'
-							values '12'
-						}
-						axis {
-							name 'PHP'
-							values '7.2', '7.3', '7.4', '8.1', '8.2'
-						}
-					}
-					// phpunit 11: only PHP 8.2, 8.3, 8.4
-					exclude {
-						axis {
-							name 'PHPUNIT'
-							values '11'
-						}
-						axis {
-							name 'PHP'
-							values '7.2', '7.3', '7.4', '8.1'
-						}
-					}
-					// phpunit 10: only PHP 8.1, 8.2, 8.3, 8.4
-					exclude {
-						axis {
-							name 'PHPUNIT'
-							values '10'
-						}
-						axis {
-							name 'PHP'
-							values '7.2', '7.3', '7.4'
-						}
-					}
-					// phpunit 9: only PHP 7.3, 7.4, 8.1, 8.2, 8.3, 8.4
-					exclude {
-						axis {
-							name 'PHPUNIT'
-							values '9'
-						}
-						axis {
-							name 'PHP'
-							values '7.2'
-						}
-					}
-				}
-				stages {
-					stage('create') {
+					stage('push-manifest') {
 						steps {
 							sh '''
 								docker manifest create \
 									--amend ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT} \
 									${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-amd64 \
 									${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-arm64
+
+								docker manifest push ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}
 							'''
 						}
 					}
-					stage('push-manifests') {
-						steps {
-							sh '''
-								echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-								docker manifest push ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}
-								docker logout
-							'''
-						}
+				}
+				post {
+					always {
+						sh '''
+							docker logout
+						'''
 					}
 				}
 			}
