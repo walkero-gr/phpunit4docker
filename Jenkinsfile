@@ -27,9 +27,9 @@ pipeline {
 			}
 		}
 		stage('build-images') {
-			agent { label "agent-${ARCH}" }
 			when { branch 'master' }
 			matrix {
+				agent { label "agent-${ARCH}" }
 				axes {
 					axis {
 						name 'ARCH'
