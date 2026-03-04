@@ -16,14 +16,6 @@ pipeline {
 		PHPUNIT_VER_8="8.5.50"
 	}
 	stages {
-		stage('aws-poweron') {
-			when { branch 'master' }
-			steps {
-				sh '''
-					aws ec2 start-instances --instance-ids i-07474e4fe80f14754
-				'''
-			}
-		}
 		stage('build-images') {
 			when { branch 'master' }
 			matrix {
@@ -91,7 +83,7 @@ pipeline {
 				stages {
 					stage('build') {
 						steps {
-							script {								
+							script {
 								// Determine PHPUnit and XDebug full versions
 								def PHPUNIT_VER = env."PHPUNIT_VER_${env.PHPUNIT}"
 								def XDEBUG_VER

@@ -1,9 +1,9 @@
 
-# make build UNIT=9 PHP_VER=7.4
+# make build UNIT=12 PHP_VER=8.5
 -include phpunit.mk
 
-PHP_VER := 7.4
-XDEBUG_VER := 3.2.1
+PHP_VER := 8.5
+XDEBUG_VER := 3.5.0
 
 PHPUNIT_MINOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 PHPUNIT_MAJOR_VER := $(shell echo "${PHPUNIT_VER}" | grep -oE '^[0-9]+')
