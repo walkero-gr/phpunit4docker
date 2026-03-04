@@ -94,11 +94,12 @@ pipeline {
 									XDEBUG_VER = env.XDEBUG_VER_31
 								}
 								sh '''
-									docker build \
+									docker buildx build \
 										--cache-from ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-${ARCH} \
 										--build-arg PHP_VER=${PHP} \
 										--build-arg PHPUNIT_VER=${PHPUNIT_VER} \
 										--build-arg XDEBUG_VER=${XDEBUG_VER} \
+										--provenance false \
 										-t ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-${ARCH} \
 										-f Dockerfile .
 								'''
