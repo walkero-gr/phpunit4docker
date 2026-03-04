@@ -1,4 +1,3 @@
-[![Build Status](https://drone-gh.intercube.gr/api/badges/walkero-gr/phpunit4docker/status.svg)](https://drone-gh.intercube.gr/walkero-gr/phpunit4docker)
 [![Docker Pulls](https://img.shields.io/docker/pulls/walkero/phpunit-alpine?color=brightgreen)](https://hub.docker.com/r/walkero/phpunit-alpine)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/db9d7c92f8694ecda2f1cd314fd03969)](https://www.codacy.com/gh/walkero-gr/phpunit4docker/dashboard?utm_source=github.com&utm_medium=referral&utm_content=walkero-gr/phpunit4docker&utm_campaign=Badge_Grade)
 [![github](https://img.shields.io/badge/Repo%20on%20GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/walkero-gr/phpunit4docker)
@@ -25,6 +24,8 @@ All the docker images are based on Alpine Linux and have a really small footprin
 ### Available tags
 
 All images are built for **AMD64** and **ARM64** platforms, so they can be used in any Intel/AMD CPU based computers, in Mac M1 and other ARM CPU based computers.
+
+**phpunit13:** php8.5-phpunit13, php8.4-phpunit13
 
 **phpunit12:** php8.5-phpunit12, php8.4-phpunit12, php8.3-phpunit12
 
