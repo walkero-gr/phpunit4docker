@@ -1,4 +1,4 @@
-ARG PHP_VER
+ARG PHP_VER=8.5
 
 FROM php:${PHP_VER}-fpm-alpine
 

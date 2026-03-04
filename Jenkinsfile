@@ -95,6 +95,7 @@ pipeline {
 								}
 								sh '''
 									docker buildx build \
+										--progress plain \
 										--cache-from ${DOCKERHUB_REPO}:php${PHP}-phpunit${PHPUNIT}-${ARCH} \
 										--build-arg PHP_VER=${PHP} \
 										--build-arg PHPUNIT_VER=${PHPUNIT_VER} \
