@@ -15,261 +15,40 @@ pipeline {
 		PHPUNIT_VER_8="8.5.52"
 	}
 	stages {
-		stage('build-phpunit-13') {
+		stage('build-phpunit') {
 			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '13', env.ARCH)
+			steps {
+				script {
+					def phpunitConfigs = [
+						'13': ['8.4', '8.5'],
+						'12': ['8.3', '8.4', '8.5'],
+						'11': ['8.2', '8.3', '8.4', '8.5'],
+						'10': ['8.1', '8.2', '8.3', '8.4', '8.5'],
+						'9':  ['7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'],
+						'8':  ['7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5']
+					]
+
+					def branches = [:]
+					phpunitConfigs.each { phpunitNum, phpVersions ->
+						phpVersions.each { php ->
+							['amd64', 'arm64'].each { arch ->
+								def pNum = phpunitNum
+								def pVer = php
+								def pArch = arch
+								branches["phpunit${pNum}-php${pVer}-${pArch}"] = {
+									node("agent-${pArch}") {
+										try {
+											sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+											buildAndPush(pVer, pNum, pArch)
+										} finally {
+											sh 'docker logout'
+										}
 									}
 								}
 							}
 						}
 					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
-				}
-			}
-		}
-		stage('build-phpunit-12') {
-			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '8.3', '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '12', env.ARCH)
-									}
-								}
-							}
-						}
-					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
-				}
-			}
-		}
-		stage('build-phpunit-11') {
-			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '8.2', '8.3', '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '11', env.ARCH)
-									}
-								}
-							}
-						}
-					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
-				}
-			}
-		}
-		stage('build-phpunit-10') {
-			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '8.1', '8.2', '8.3', '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '10', env.ARCH)
-									}
-								}
-							}
-						}
-					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
-				}
-			}
-		}
-		stage('build-phpunit-9') {
-			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '9', env.ARCH)
-									}
-								}
-							}
-						}
-					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
-				}
-			}
-		}
-		stage('build-phpunit-8') {
-			when { branch 'master' }
-			stages {
-				stage('build-and-push') {
-					matrix {
-						agent { label "agent-${ARCH}" }
-						axes {
-							axis {
-								name 'ARCH'
-								values 'amd64', 'arm64'
-							}
-							axis {
-								name 'PHP'
-								values '7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'
-							}
-						}
-						stages {
-							stage('docker-login') {
-								steps {
-									sh '''
-										echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
-									'''
-								}
-							}
-							stage('build-and-push') {
-								steps {
-									script {
-										buildAndPush(env.PHP, '8', env.ARCH)
-									}
-								}
-							}
-						}
-					}
-					post {
-						always {
-							sh '''
-								docker logout
-							'''
-						}
-					}
+					parallel branches
 				}
 			}
 		}
@@ -310,19 +89,10 @@ def buildAndPush(phpVer, phpunitNum, arch) {
 
 	// Create and push manifest
 	sh """
-		if docker manifest inspect ${imageTagBase} > /dev/null 2>&1; then
-			# Manifest exists, amend it
-			docker manifest create \
-				--amend ${imageTagBase} \
-				${imageTagBase}-amd64 \
-				${imageTagBase}-arm64
-		else
-			# Manifest doesn't exist, create it
-			docker manifest create \
-				${imageTagBase} \
-				${imageTagBase}-amd64 \
-				${imageTagBase}-arm64
-		fi
+		docker manifest create \
+			${imageTagBase} \
+			${imageTagBase}-amd64 \
+			${imageTagBase}-arm64
 
 		docker manifest push ${imageTagBase}
 	"""
