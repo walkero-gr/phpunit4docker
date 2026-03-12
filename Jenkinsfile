@@ -89,6 +89,12 @@ def buildAndPush(phpVer, phpunitNum, arch) {
 
 	// Create and push manifest
 	sh """
+		if docker manifest inspect ${imageTagBase} > /dev/null 2>&1; then
+			# Manifest exists, remove it
+			docker manifest rm ${imageTagBase}
+		fi
+
+		# Manifest doesn't exist, create it
 		docker manifest create \
 			${imageTagBase} \
 			${imageTagBase}-amd64 \
