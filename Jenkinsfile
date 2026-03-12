@@ -17,38 +17,150 @@ pipeline {
 	stages {
 		stage('build-phpunit') {
 			when { branch 'master' }
-			steps {
-				script {
-					def phpunitConfigs = [
-						'13': ['8.4', '8.5'],
-						'12': ['8.3', '8.4', '8.5'],
-						'11': ['8.2', '8.3', '8.4', '8.5'],
-						'10': ['8.1', '8.2', '8.3', '8.4', '8.5'],
-						'9':  ['7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'],
-						'8':  ['7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5']
-					]
-
-					def branches = [:]
-					phpunitConfigs.each { phpunitNum, phpVersions ->
-						phpVersions.each { php ->
-							['amd64', 'arm64'].each { arch ->
-								def pNum = phpunitNum
-								def pVer = php
-								def pArch = arch
-								branches["phpunit${pNum}-php${pVer}-${pArch}"] = {
-									node("agent-${pArch}") {
-										try {
-											sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
-											buildAndPush(pVer, pNum, pArch)
-										} finally {
-											sh 'docker logout'
+			parallel {
+				stage('build-phpunit-13') {
+					steps {
+						script {
+							def branches = [:]
+							['8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '13', pArch)
+											} finally {
+												sh 'docker logout'
+											}
 										}
 									}
 								}
 							}
+							parallel branches
 						}
 					}
-					parallel branches
+				}
+				stage('build-phpunit-12') {
+					steps {
+						script {
+							def branches = [:]
+							['8.3', '8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '12', pArch)
+											} finally {
+												sh 'docker logout'
+											}
+										}
+									}
+								}
+							}
+							parallel branches
+						}
+					}
+				}
+				stage('build-phpunit-11') {
+					steps {
+						script {
+							def branches = [:]
+							['8.2', '8.3', '8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '11', pArch)
+											} finally {
+												sh 'docker logout'
+											}
+										}
+									}
+								}
+							}
+							parallel branches
+						}
+					}
+				}
+				stage('build-phpunit-10') {
+					steps {
+						script {
+							def branches = [:]
+							['8.1', '8.2', '8.3', '8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '10', pArch)
+											} finally {
+												sh 'docker logout'
+											}
+										}
+									}
+								}
+							}
+							parallel branches
+						}
+					}
+				}
+				stage('build-phpunit-9') {
+					steps {
+						script {
+							def branches = [:]
+							['7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '9', pArch)
+											} finally {
+												sh 'docker logout'
+											}
+										}
+									}
+								}
+							}
+							parallel branches
+						}
+					}
+				}
+				stage('build-phpunit-8') {
+					steps {
+						script {
+							def branches = [:]
+							['7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'].each { php ->
+								['amd64', 'arm64'].each { arch ->
+									def pVer = php
+									def pArch = arch
+									branches["php${pVer}-${pArch}"] = {
+										node("agent-${pArch}") {
+											try {
+												sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+												buildAndPush(pVer, '8', pArch)
+											} finally {
+												sh 'docker logout'
+											}
+										}
+									}
+								}
+							}
+							parallel branches
+						}
+					}
 				}
 			}
 		}
