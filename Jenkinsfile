@@ -39,7 +39,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['8.4', '8.5'].each { php -> createAndPushManifest(php, '13') }
+							createAndPushManifests(['8.4', '8.5'], '13')
 						}
 					}
 				}
@@ -79,7 +79,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['8.3', '8.4', '8.5'].each { php -> createAndPushManifest(php, '12') }
+							createAndPushManifests(['8.3', '8.4', '8.5'], '12')
 						}
 					}
 				}
@@ -127,7 +127,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['8.2', '8.3', '8.4', '8.5'].each { php -> createAndPushManifest(php, '11') }
+							createAndPushManifests(['8.2', '8.3', '8.4', '8.5'], '11')
 						}
 					}
 				}
@@ -183,7 +183,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['8.1', '8.2', '8.3', '8.4', '8.5'].each { php -> createAndPushManifest(php, '10') }
+							createAndPushManifests(['8.1', '8.2', '8.3', '8.4', '8.5'], '10')
 						}
 					}
 				}
@@ -255,7 +255,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'].each { php -> createAndPushManifest(php, '9') }
+							createAndPushManifests(['7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'], '9')
 						}
 					}
 				}
@@ -335,7 +335,7 @@ pipeline {
 				stage('push manifests') {
 					steps {
 						script {
-							['7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'].each { php -> createAndPushManifest(php, '8') }
+							createAndPushManifests(['7.2', '7.3', '7.4', '8.1', '8.2', '8.3', '8.4', '8.5'], '8')
 						}
 					}
 				}
@@ -370,29 +370,33 @@ def buildAndPush(phpVer, phpunitNum, arch) {
 				-t ${imageTagBase}-${arch} \
 				-f Dockerfile .
 		"""
-		sh "docker push ${imageTagBase}-${arch}"
+		retry(3) {
+			sh "docker push ${imageTagBase}-${arch}"
+		}
 	} finally {
 		sh 'docker logout'
 	}
 }
 
-def createAndPushManifest(phpVer, phpunitNum) {
-	def imageTagBase = "${env.DOCKERHUB_REPO}:php${phpVer}-phpunit${phpunitNum}"
-
-	sh """
-		docker manifest rm ${imageTagBase} || true
-		docker manifest create \
-			${imageTagBase} \
-			${imageTagBase}-amd64 \
-			${imageTagBase}-arm64
-	"""
+def createAndPushManifests(phpVersions, phpunitNum) {
+	phpVersions.each { phpVer ->
+		def imageTagBase = "${env.DOCKERHUB_REPO}:php${phpVer}-phpunit${phpunitNum}"
+		sh """
+			docker manifest rm ${imageTagBase} || true
+			docker manifest create \
+				${imageTagBase} \
+				${imageTagBase}-amd64 \
+				${imageTagBase}-arm64
+		"""
+	}
 
 	try {
-		retry(3) {
-			sh """
-				echo \$DOCKERHUB_CREDS_PSW | docker login -u \$DOCKERHUB_CREDS_USR --password-stdin
-				docker manifest push ${imageTagBase}
-			"""
+		sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+		phpVersions.each { phpVer ->
+			def imageTagBase = "${env.DOCKERHUB_REPO}:php${phpVer}-phpunit${phpunitNum}"
+			retry(3) {
+				sh "docker manifest push ${imageTagBase}"
+			}
 		}
 	} finally {
 		sh 'docker logout'
