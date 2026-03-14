@@ -358,7 +358,6 @@ def buildAndPush(phpVer, phpunitNum, arch) {
 	def imageTagBase = "${env.DOCKERHUB_REPO}:php${phpVer}-phpunit${phpunitNum}"
 
 	try {
-		sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
 		sh """
 			docker buildx build \
 				--progress plain \
@@ -371,7 +370,10 @@ def buildAndPush(phpVer, phpunitNum, arch) {
 				-f Dockerfile .
 		"""
 		retry(3) {
-			sh "docker push ${imageTagBase}-${arch}"
+			sh """
+				echo \$DOCKERHUB_CREDS_PSW | docker login -u \$DOCKERHUB_CREDS_USR --password-stdin
+				docker push ${imageTagBase}-${arch}
+			"""
 		}
 	} finally {
 		sh 'docker logout'
